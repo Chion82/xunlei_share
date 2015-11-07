@@ -1,0 +1,4 @@
+build/
+dist/
+xunleishare.egg-info/
+*.pyc
