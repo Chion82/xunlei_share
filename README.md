@@ -26,6 +26,6 @@ Then execute the generated ```xunlei_output``` shell.
 
 or
 
-``
+```
 $ xunleishare "DOWNLOAD_LINK" -o "OUTPUT_SHELL_FILE"
-``
+```
