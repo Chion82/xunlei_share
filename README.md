@@ -5,7 +5,6 @@
 ![python](https://img.shields.io/badge/python-2.7-green.svg)
 ![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
 
-
 Based on the idea of sharing, XunleiShare is a command-line interface tool to directly get download links on Xunlei Lixian servers with the help of the maintainer's Xunlei VIP account. You do not have to acquire a VIP.
 
 Backend server : https://github.com/Chion82/ThunderHack.git
