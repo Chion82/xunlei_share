@@ -1,10 +1,10 @@
 #Xunlei Share
 
-![XunleiShare](https://img.shields.io/badge/XunleiShare-first%20release-brightgreen.svg)
-![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
 [![PyPI version](https://badge.fury.io/py/xunleishare.svg)](https://badge.fury.io/py/xunleishare)
-![python](https://img.shields.io/badge/python-2.7-green.svg)
 [![Code Health](https://landscape.io/github/Chion82/xunlei_share/master/landscape.svg?style=flat)](https://landscape.io/github/Chion82/xunlei_share/master)
+![python](https://img.shields.io/badge/python-2.7-green.svg)
+![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
+
 
 Based on the idea of sharing, XunleiShare is a command-line interface tool to directly get download links on Xunlei Lixian servers with the help of the maintainer's Xunlei VIP account. You do not have to acquire a VIP.
 
