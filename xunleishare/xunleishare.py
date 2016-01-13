@@ -73,12 +73,12 @@ def main():
 	else:
 		output_file = 'xunlei_output'
 
-	import sys
+	import six
 	f = open(output_file, 'w+')
-	if sys.version_info.major == 2:
-		f.write(commands.encode('utf8'))
-	elif sys.version_info.major == 3:
+	if six.PY3:
 		f.write(commands)
+	else:
+		f.write(commands.encode('utf8'))
 	f.close()
 
 	import subprocess
