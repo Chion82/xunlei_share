@@ -73,8 +73,12 @@ def main():
 	else:
 		output_file = 'xunlei_output'
 
+	import sys
 	f = open(output_file, 'w+')
-	f.write(commands.encode('utf8'))
+	if sys.version_info.major == 2:
+		f.write(commands.encode('utf8'))
+	elif sys.version_info.major == 3:
+		f.write(commands)
 	f.close()
 
 	import subprocess

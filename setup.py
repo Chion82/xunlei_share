@@ -8,7 +8,7 @@ setup(
       ],
   },
   install_requires=['requests'],
-  version = '0.1.1',
+  version = '0.1.2',
   description = 'Based on the idea of sharing, XunleiShare is a command-line interface tool to directly get download links on Xunlei Lixian servers with the help of the maintainer\'s Xunlei VIP account. You do not have to acquire a VIP.',
   author = 'Chion82',
   license='MIT',
