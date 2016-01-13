@@ -29,3 +29,5 @@ or
 ```
 $ xunleishare "DOWNLOAD_LINK" -o "OUTPUT_SHELL_FILE"
 ```
+
+Add switch ```-a``` if you want to download all files simultaneously.
