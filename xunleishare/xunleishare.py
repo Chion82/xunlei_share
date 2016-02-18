@@ -1,6 +1,7 @@
 # coding=utf-8
 
-import requests, argparse
+import requests, argparse, os
+from PIL import Image
 
 class XunleiShare(object):
 
@@ -11,17 +12,25 @@ class XunleiShare(object):
 		request_result = requests.get('https://raw.githubusercontent.com/Chion82/Chion82.github.io/master/server_host')
 		self.__host = request_result.text.replace('\n','')
 
+	def get_verify_code(self):
+		request_result = requests.get(self.__host + '/api/verify_code')
+		self.__verify_key = request_result.headers.get('Verify-Key')
+		with open('verify_code.jpg', 'wb+') as file:
+			file.write(request_result.content)
+		img = Image.open('verify_code.jpg')
+		img.show()
+
 	def get_gdrive_id(self):
 		request_json = requests.get(self.__host + '/api/gdriveid').json()
 		self.__gdrive_id = request_json['gdriveid']
 		return self.__gdrive_id
 
-	def commit_magnet_task(self, magnet_link):
-		request_json = requests.post(self.__host + '/api/commit_magnet.do', data={'magnet_link':magnet_link}).json()
+	def commit_magnet_task(self, magnet_link, verify_code):
+		request_json = requests.post(self.__host + '/api/commit_magnet.do', data={'magnet_link':magnet_link, 'verify_code': verify_code, 'verify_key': self.__verify_key}).json()
 		return request_json
 
-	def commit_normal_task(self, download_link):
-		request_json = requests.post(self.__host + '/api/commit_normal_task.do', data={'link':download_link}).json()
+	def commit_normal_task(self, download_link, verify_code):
+		request_json = requests.post(self.__host + '/api/commit_normal_task.do', data={'link':download_link, 'verify_code': verify_code, 'verify_key': self.__verify_key}).json()
 		return request_json
 
 	def query_task(self, task_id):
@@ -39,10 +48,17 @@ def main():
 	xunlei = XunleiShare()
 	gdrive_id = xunlei.get_gdrive_id()
 
+	xunlei.get_verify_code()
+
+	print('输入验证码:')
+	print('Please enter verify code:')
+	verify_code = raw_input()
+	os.remove('verify_code.jpg')
+
 	if (args.link.find('magnet:?') != -1):
-		commit_result_json = xunlei.commit_magnet_task(args.link)
+		commit_result_json = xunlei.commit_magnet_task(args.link, verify_code)
 	else:
-		commit_result_json = xunlei.commit_normal_task(args.link)
+		commit_result_json = xunlei.commit_normal_task(args.link, verify_code)
 
 	if (commit_result_json['status'] != 'OK'):
 		print('提交任务失败，请重试')
@@ -50,6 +66,8 @@ def main():
 		if 'error' in commit_result_json:
 			if 'msg' in commit_result_json['error']:
 				print('ERR_MSG=%s' % commit_result_json['error']['msg'])
+			else:
+				print('ERR_MSG=%s' % commit_result_json['error'])
 		exit()
 
 	task_query_result_json = xunlei.query_task(commit_result_json['task_id'])
